@@ -9,26 +9,21 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import * as Yup from 'yup'
+import loginSchema from './Validation/loginSchema'
 
 
 //Initial States
 const initialFormValues = {
     username: '',
-    password: '',
-    email: '',
-    classes: [],
-    TOS: ''
+    password: ''
 }
   
 const initialFormErrors = {
-        username: '',
-    password: '',
-    email: '',
-    classes: [],
-    TOS: ''
+    username: '',
+    password: ''
 }
 
-const initialDisabled = false
+const initialDisabled = true
 
 
 export default function Login(){
@@ -41,21 +36,21 @@ export default function Login(){
     const onInputChange = evt => {
         const {name, value} = evt.target
 
-        // Yup
-        //     .reach(formSchema, name)
-        //     .valudate(value)
-        //     .then(() => {
-        //         setFormErrors({
-        //             ...formErrors,
-        //             [name]: ""
-        //         });
-        //     })
-        //     .catch(err => {
-        //         setFormErrors({
-        //             ...formErrors,
-        //             [name]: err.errors[0]
-        //         });
-        //     })
+        Yup
+            .reach(loginSchema, name)
+            .validate(value)
+            .then(() => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: ""
+                });
+            })
+            .catch(err => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: err.errors[0]
+                });
+            })
 
         setFormValues({
             ...formValues,
@@ -70,19 +65,43 @@ export default function Login(){
     }
 
     //Toggle button disable
-    // useEffect(() => {
-    //     formSchema.isValid(formValues).then(valid => {
-    //         setDisabled(!valid);
-    //     }, [formValues])
-    // })
+    useEffect(() => {
+        loginSchema.isValid(formValues).then(valid => {
+            setDisabled(!valid);
+        }, [formValues])
+    })
 
     return(
         <form className = 'form container' onSubmit={onSubmit}>
+            {/* Form Inputs */}
             <div className="form-group inputs">
                 <label> Username
                     <input 
-                        value={formValues.user}
+                        value={formValues.username}
+                        onChange={onInputChange}
+                        name='username'
+                        type='text'
+                    />
                 </label>
+
+                <label> Password:
+                    <input
+                        value={formValues.password}
+                        onChange={onInputChange}
+                        name='password'
+                        type='password'
+                    />
+                </label>
+            </div>
+
+            {/* Submit */}
+            <div className='form-group submit'>
+                <div className='errors'>
+                    <div>{formErrors.username}</div>
+                    <div>{formErrors.password}</div>
+                </div>
+
+                <button id='submitBtn' disabled={disabled}>submit</button>
             </div>
         </form>
     )
