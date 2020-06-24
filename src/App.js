@@ -6,14 +6,15 @@ import './App.css';
 //Import components
 import Login from './Components/Login'
 import Register from './Components/Register'
+import List from './Components/List'
 function App() {
-
   
   return (
     <div className="App">
       The list
+      <List />
       <div>
-        <Switch>
+        {/* <Switch>
           <Route path ="/Login">
             <Login />
           </Route>
@@ -21,7 +22,7 @@ function App() {
           <Route path = "/Register">
             <Register />
           </Route>
-        </Switch>
+        </Switch> */}
       </div>
     </div>
   );
