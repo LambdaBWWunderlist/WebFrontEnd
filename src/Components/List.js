@@ -10,7 +10,7 @@ const initialItems = [
     body: "remember to buy food",
     completed: false,
     recurring: "weekly",
-    due_date: "before you run out of food", // make sure to change this to time stamp
+    due_date: "before you run out of food", //! make sure to change this to time stamp
   },
   {
     name: "Cook food",

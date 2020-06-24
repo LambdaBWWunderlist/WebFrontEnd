@@ -11,10 +11,23 @@ import Axios from "axios";
 import * as Yup from "yup";
 import loginSchema from "./Validation/loginSchema";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+//styled components
+const CardCenter = styled.form`
+  margin: 100px auto;
+  max-width: 300px;
+  border: 1px solid #f17300;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 //Initial States
 const initialFormValues = {
   username: "",
+  email: "",
   password: "",
 };
 
@@ -72,7 +85,7 @@ export default function Login() {
   });
 
   return (
-    <form className="form container" onSubmit={onSubmit}>
+    <CardCenter className="form container" onSubmit={onSubmit}>
       {/* Form Inputs */}
       <div className="form-group inputs">
         <label>
@@ -85,9 +98,21 @@ export default function Login() {
             type="text"
           />
         </label>
+        <br></br>
 
         <label>
           {" "}
+          Email
+          <input
+            type="text"
+            name="email"
+            onChange={onInputChange}
+            value={formValues.email}
+          />
+        </label>
+        <br></br>
+
+        <label>
           Password:
           <input
             value={formValues.password}
@@ -97,11 +122,13 @@ export default function Login() {
           />
         </label>
       </div>
+      <br></br>
 
       {/* Submit */}
       <div className="form-group submit">
         <div className="errors">
           <div>{formErrors.username}</div>
+          <div>{formErrors.email}</div>
           <div>{formErrors.password}</div>
         </div>
         <Link to="/list">
@@ -110,6 +137,6 @@ export default function Login() {
           </button>
         </Link>
       </div>
-    </form>
+    </CardCenter>
   );
 }

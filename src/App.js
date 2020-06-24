@@ -7,6 +7,7 @@ import NavigationBar from "./NavigationBar";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import List from "./Components/List";
+import Item from "./Components/Item";
 
 function App() {
   return (
@@ -22,16 +23,12 @@ function App() {
             <Register />
           </Route>
 
-          <Route path="/list">
+          <Route path="/List">
             <List />
           </Route>
 
-          <Route path="/item">
-            <List />
-          </Route>
-
-          <Route path="/edit">
-            <List />
+          <Route path="/Item">
+            <Item />
           </Route>
         </Switch>
       </div>

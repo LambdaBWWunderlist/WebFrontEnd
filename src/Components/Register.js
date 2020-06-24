@@ -40,11 +40,13 @@ const Register = () => {
   console.log(formValues);
 
   useEffect(() => {
-    registerSchema.isValid(formValues).then((valid) => {
-      setDisabled(!valid);
-    });
-    console.log(formValues);
-  }, [formValues]);
+    registerSchema.isValid(formValues).then(
+      (valid) => {
+        setDisabled(!valid);
+      },
+      [formValues]
+    );
+  });
 
   const postNewUser = (newUser) => {
     Axios.post("https://wunderlist-node.herokuapp.com/api/register", newUser)
