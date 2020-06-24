@@ -3,6 +3,7 @@ import Axios from "axios";
 import * as Yup from "yup";
 import Item from "./Item";
 import { v4 as uuid } from "uuid";
+import ItemForm from './ItemForm'
 
 const initialItems = [
   {
@@ -30,9 +31,10 @@ export default function List() {
 
   return (
     <div>
-      {itemList.map((item) => {
-        return <Item itemInfo={item} />;
-      })}
+        {itemList.map((item) => {
+            return <Item itemInfo={item} />;
+        })}
+        <ItemForm />
     </div>
   );
 }

@@ -33,6 +33,7 @@ const initialFormValues = {
 
 const initialFormErrors = {
   username: "",
+  email: "",
   password: "",
 };
 
@@ -68,8 +69,8 @@ export default function Login() {
     });
   };
 
-  const postNewAccount = newAccount => {
-    Axios.post('https://reqres.in/api/users', newAccount)
+  const sendAccount = sendingAccount => {
+    Axios.post('https://wunderlist-node.herokuapp.com/api/login', sendingAccount)
     .then(res => {
       console.log(res)
     })
@@ -84,13 +85,14 @@ export default function Login() {
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    const newAccount = {
+    const accountSend = {
         username: formValues.username.trim(),
+        email: formValues.email.trim(),
         password: formValues.password.trim()
     }
 
 
-    postNewAccount(newAccount)
+    sendAccount(accountSend)
   };
 
   //Toggle button disable

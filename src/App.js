@@ -26,7 +26,6 @@ function App() {
 
           <Route path="/Home">
             <List />
-            <ItemForm />
           </Route>
 
           <Route path="/Item">
