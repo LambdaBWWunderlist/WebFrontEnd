@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useHistory } from 'react'
-import { Switch, Link, Route } from 'react-router-dom'
-import axios from 'axios'
-import './App.css';
+import React from "react";
+import { Switch, Link, Route } from "react-router-dom";
+import "./App.css";
 
 //Import components
-import Login from './Components/Login'
-import Register from './Components/Register'
-function App() {
+import Login from "./Components/Login";
+import Register from "./Components/Register";
 
-  
+function App() {
   return (
     <div className="App">
-      The list
+      Wunderlist
       <div>
         <Switch>
-          <Route path ="/Login">
+          <Route path="/Login">
             <Login />
           </Route>
 
-          <Route path = "/Register">
+          <Route path="/Register">
             <Register />
           </Route>
         </Switch>
