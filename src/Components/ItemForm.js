@@ -27,7 +27,7 @@ const initialFormErrors = {
     due_date: ''
 }
 
-const initialDisabled = true
+const initialDisabled = false
 
 export default function ItemForm(){
 
@@ -64,10 +64,13 @@ export default function ItemForm(){
     const onSubmit = evt => {
         evt.preventDefault()
 
-        // const newAccount = {
-        //     username: formValues.username.trim(),
-        //     password: formValues.password.trim()
-        // }
+        const newItem = {
+            name: formValues.name.trim(),
+            body: formValues.body.trim(),
+            completed: formValues.completed,
+            recurring: formValues.recurring,
+            due_date: formValues.due_date
+        }
     }
 
     // useEffect(() => {
@@ -110,6 +113,16 @@ export default function ItemForm(){
                     <option value='Monthly'>Monthly</option>
                 </select>
                 </label>
+            </div>
+            <div className="form-group submit">
+                <div className="errors">
+                <div>{formErrors.username}</div>
+                <div>{formErrors.email}</div>
+                <div>{formErrors.password}</div>
+                </div>
+                <button id="submitBtn" disabled={disabled}>
+                    submit
+                </button>
             </div>
         </form>
     )
