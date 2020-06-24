@@ -1,28 +1,36 @@
-import React, { useState, useEffect, useHistory } from 'react'
-import { Switch, Link, Route } from 'react-router-dom'
-import axios from 'axios'
-import './App.css';
+import React from "react";
+import { Switch, Link, Route } from "react-router-dom";
+import "./App.css";
 
 //Import components
-import Login from './Components/Login'
-import Register from './Components/Register'
-import List from './Components/List'
+import NavigationBar from "./NavigationBar";
+import Login from "./Components/Login";
+import Register from "./Components/Register";
+import List from "./Components/List";
+import Item from "./Components/Item";
+
 function App() {
-  
   return (
-    <div className="App">
-      The list
-      <List />
+    <div>
+      <NavigationBar />
       <div>
-        {/* <Switch>
-          <Route path ="/Login">
+        <Switch>
+          <Route path="/Login">
             <Login />
           </Route>
 
-          <Route path = "/Register">
+          <Route path="/Register">
             <Register />
           </Route>
-        </Switch> */}
+
+          <Route path="/List">
+            <List />
+          </Route>
+
+          <Route path="/Item">
+            <Item />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

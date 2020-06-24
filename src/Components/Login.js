@@ -6,122 +6,137 @@
 //     created_at: TIMESTAMP; // defaults to now, server will handle this
 //   }
 
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import * as Yup from 'yup'
-import loginSchema from './Validation/loginSchema'
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import * as Yup from "yup";
+import loginSchema from "./Validation/loginSchema";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
+//styled components
+const CardCenter = styled.form`
+  margin: 100px auto;
+  max-width: 300px;
+  border: 1px solid #f17300;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 //Initial States
 const initialFormValues = {
-    username: '',
-    password: ''
-}
-  
+  username: "",
+  email: "",
+  password: "",
+};
+
 const initialFormErrors = {
-    username: '',
-    password: ''
-}
+  username: "",
+  password: "",
+};
 
-const initialDisabled = true
+const initialDisabled = true;
 
+export default function Login() {
+  //States
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
 
-export default function Login(){
+  const onInputChange = (evt) => {
+    const { name, value } = evt.target;
 
-    //States
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-    const [disabled, setDisabled] = useState(initialDisabled)
+    Yup.reach(loginSchema, name)
+      .validate(value)
+      .then(() => {
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0],
+        });
+      });
 
-    const postNewAccount = newAccount => {
-        Axios.post('https://reqres.in/api/users', newAccount)
-        .then(res => {
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-        .finally(() => {
-          setFormValues(initialFormValues)
-        })
-      }
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
 
-    const onInputChange = evt => {
-        const {name, value} = evt.target
+  const onSubmit = (evt) => {
+    evt.preventDefault();
 
-        Yup
-            .reach(loginSchema, name)
-            .validate(value)
-            .then(() => {
-                setFormErrors({
-                    ...formErrors,
-                    [name]: ""
-                });
-            })
-            .catch(err => {
-                setFormErrors({
-                    ...formErrors,
-                    [name]: err.errors[0]
-                });
-            })
+    //LOGIN AUTHENTICATION SHIT HERE?
+  };
 
-        setFormValues({
-            ...formValues,
-            [name]: value
-        })
-    }
+  //Toggle button disable
+  useEffect(() => {
+    loginSchema.isValid(formValues).then(
+      (valid) => {
+        setDisabled(!valid);
+      },
+      [formValues]
+    );
+  });
 
-    const onSubmit = evt => {
-        evt.preventDefault()
+  return (
+    <CardCenter className="form container" onSubmit={onSubmit}>
+      {/* Form Inputs */}
+      <div className="form-group inputs">
+        <label>
+          {" "}
+          Username
+          <input
+            value={formValues.username}
+            onChange={onInputChange}
+            name="username"
+            type="text"
+          />
+        </label>
+        <br></br>
 
-        const newAccount = {
-            username: formValues.username.trim(),
-            password: formValues.password.trim()
-        }
-        
+        <label>
+          {" "}
+          Email
+          <input
+            type="text"
+            name="email"
+            onChange={onInputChange}
+            value={formValues.email}
+          />
+        </label>
+        <br></br>
 
-        postNewAccount(newAccount)
-    }
+        <label>
+          Password:
+          <input
+            value={formValues.password}
+            onChange={onInputChange}
+            name="password"
+            type="password"
+          />
+        </label>
+      </div>
+      <br></br>
 
-    //Toggle button disable
-    useEffect(() => {
-        loginSchema.isValid(formValues).then(valid => {
-            setDisabled(!valid);
-        }, [formValues])
-    })
-
-    return(
-        <form className = 'form container' onSubmit={onSubmit}>
-            {/* Form Inputs */}
-            <div className="form-group inputs">
-                <label> Username
-                    <input 
-                        value={formValues.username}
-                        onChange={onInputChange}
-                        name='username'
-                        type='text'
-                    />
-                </label>
-
-                <label> Password:
-                    <input
-                        value={formValues.password}
-                        onChange={onInputChange}
-                        name='password'
-                        type='password'
-                    />
-                </label>
-            </div>
-
-            {/* Submit */}
-            <div className='form-group submit'>
-                <div className='errors'>
-                    <div>{formErrors.username}</div>
-                    <div>{formErrors.password}</div>
-                </div>
-
-                <button id='submitBtn' disabled={disabled}>submit</button>
-            </div>
-        </form>
-    )
+      {/* Submit */}
+      <div className="form-group submit">
+        <div className="errors">
+          <div>{formErrors.username}</div>
+          <div>{formErrors.email}</div>
+          <div>{formErrors.password}</div>
+        </div>
+        <Link to="/list">
+          <button id="submitBtn" disabled={disabled}>
+            submit
+          </button>
+        </Link>
+      </div>
+    </CardCenter>
+  );
 }
