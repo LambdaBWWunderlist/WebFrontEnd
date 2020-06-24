@@ -172,7 +172,7 @@ const Register = () => {
           Terms of Service
         </label>
         <br></br>
-        <Link to="/list">
+        <Link to="/login">
           <button type="submit" disabled={disabled}>
             submit
           </button>
