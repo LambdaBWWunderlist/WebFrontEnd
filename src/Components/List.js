@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import Item from "./Item";
 import itemSchema from './Validation/itemSchema'
 import ItemForm from './ItemForm'
+import ItemSearch from "./ItemSearch";
 
 //Dummy data to start with
 const initialItems = [
@@ -50,6 +51,7 @@ export default function List() {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
   const [itemList, updateItemList] = useState([]);
+  const [search, setSearch] = useState('')
   
 
   //Function to pass into the newIterm form to track input changes
@@ -78,6 +80,12 @@ export default function List() {
     })
   }
 
+  const searchInputChange = evt => {
+    const value = evt.target.value
+
+    // setSearch(value)
+    // console.log(search)
+  }
   //Submit handler for new Item
   const onSubmit = evt => {
       evt.preventDefault()
@@ -115,16 +123,20 @@ export default function List() {
 
   return (
     <div>
-        {itemList.map((item) => {
-            return <Item itemInfo={item} />;
-        })}
-        <ItemForm 
-          values={formValues}
-          onInputChange={onFormInputChange}
-          onSubmit={onSubmit}
-          disabled={disabled}
-          errors={formErrors}
-        />
+      <ItemSearch 
+        search={search}
+        onSearchChange={searchInputChange}
+      />
+      {itemList.map((item) => {
+          return <Item itemInfo={item} />;
+      })}
+      <ItemForm 
+        values={formValues}
+        onInputChange={onFormInputChange}
+        onSubmit={onSubmit}
+        disabled={disabled}
+        errors={formErrors}
+      />
     </div>
   );
 }
