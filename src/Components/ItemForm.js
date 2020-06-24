@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import * as Yup from 'yup'
+import itemSchema from './Validation/itemSchema'
 
 // {
 //     name: STRING; // not nullable, 128 chars max
