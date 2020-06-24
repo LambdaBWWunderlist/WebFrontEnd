@@ -68,10 +68,29 @@ export default function Login() {
     });
   };
 
+  const postNewAccount = newAccount => {
+    Axios.post('https://reqres.in/api/users', newAccount)
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      setFormValues(initialFormValues)
+    })
+  }
+
   const onSubmit = (evt) => {
     evt.preventDefault();
 
-    //LOGIN AUTHENTICATION SHIT HERE?
+    const newAccount = {
+        username: formValues.username.trim(),
+        password: formValues.password.trim()
+    }
+
+
+    postNewAccount(newAccount)
   };
 
   //Toggle button disable
@@ -131,11 +150,11 @@ export default function Login() {
           <div>{formErrors.email}</div>
           <div>{formErrors.password}</div>
         </div>
-        <Link to="/list">
+        {/* <Link to="/list"> */}
           <button id="submitBtn" disabled={disabled}>
             submit
           </button>
-        </Link>
+        {/* </Link> */}
       </div>
     </CardCenter>
   );
