@@ -3,25 +3,25 @@ import Axios from "axios";
 import * as Yup from "yup";
 import registerSchema from "./Validation/registerSchema";
 import { v4 as uuid } from "uuid";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //styled components
 const CardCenter = styled.form`
   margin: 100px auto;
-  max-width: 400px;
-  border: 1px solid gray;
+  max-width: 300px;
+  border: 1px solid #f17300;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-const Register = (props) => {
+const Register = () => {
   const initialFormValues = {
     username: "",
     email: "",
     password: "",
-    terms: "",
   };
 
   const initialFormErrors = {
@@ -39,8 +39,15 @@ const Register = (props) => {
   const [disabled, setDisabled] = useState(initialDisabled);
   console.log(formValues);
 
+  useEffect(() => {
+    registerSchema.isValid(formValues).then((valid) => {
+      setDisabled(!valid);
+    });
+    console.log(formValues);
+  }, [formValues]);
+
   const postNewUser = (newUser) => {
-    Axios.post("https://reqres.in/api/users", newUser)
+    Axios.post("https://wunderlist-node.herokuapp.com/api/register", newUser)
       .then((response) => {
         setUsers([...users, response.data]);
       })
@@ -102,23 +109,15 @@ const Register = (props) => {
     });
   };
 
-  useEffect(() => {
-    registerSchema.isValid(formValues).then((valid) => {
-      setDisabled(!valid);
-    });
-    console.log(formValues);
-  }, [formValues]);
-
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(onSubmit);
 
     const newUser = {
-      id: uuid(),
+      // id: uuid(),
       name: formValues.name,
       email: formValues.email,
       password: formValues.password,
-
       terms: formValues.terms,
     };
 
@@ -171,10 +170,12 @@ const Register = (props) => {
           Terms of Service
         </label>
         <br></br>
+        <Link to="/list">
+          <button type="submit" disabled={disabled}>
+            submit
+          </button>
+        </Link>
 
-        <button type="submit" id="submitBtn">
-          submit
-        </button>
         <br></br>
       </CardCenter>
     </form>
