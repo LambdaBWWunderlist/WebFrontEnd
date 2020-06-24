@@ -10,8 +10,8 @@ export default function ItemSearch(props){
     return(
         <label>
             <input 
-                //value={search}
-                //onChange={searchInputChange}
+                value={search}
+                onChange={searchInputChange}
                 name='search'
                 type='text'
                 placeholder='Item search...'
