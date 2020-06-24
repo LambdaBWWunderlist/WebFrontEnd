@@ -33,6 +33,7 @@ const initialFormValues = {
 
 const initialFormErrors = {
   username: "",
+  email: "",
   password: "",
 };
 
