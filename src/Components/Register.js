@@ -52,6 +52,7 @@ const Register = () => {
     Axios.post("https://wunderlist-node.herokuapp.com/api/register", newUser)
       .then((response) => {
         setUsers([...users, response.data]);
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
