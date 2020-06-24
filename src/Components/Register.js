@@ -116,8 +116,6 @@ const Register = () => {
     console.log(onSubmit);
 
     const newUser = {
-      // id: uuid(),
-      name: formValues.name,
       email: formValues.email,
       password: formValues.password,
       terms: formValues.terms,
@@ -152,7 +150,7 @@ const Register = () => {
         <br></br>
 
         <input
-          type="text"
+          type="password"
           name="password"
           value={formValues.value}
           onChange={onInputChange}
