@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import * as Yup from "yup";
 import Item from "./Item";
-import { v4 as uuid } from "uuid";
+import itemSchema from './Validation/itemSchema'
 import ItemForm from './ItemForm'
 
+//Dummy data to start with
 const initialItems = [
   {
     name: "Buy food",
@@ -21,20 +22,109 @@ const initialItems = [
     due_date: "before you starve",
   },
 ];
+
+//Initial States
+//For the form
+const initialFormValues = {
+  name: '',
+  body: '',
+  completed: false,
+  recurring: 'One Time',
+  due_date: 'Due date time stamp'
+}
+
+const initialFormErrors = {
+  name: '',
+  body: '',
+  completed: '',
+  recurring: '',
+  due_date: ''
+}
+
+const initialDisabled = false
+
+
 export default function List() {
+  //States
+  const [formValues, setFormValues] = useState(initialFormValues)
+  const [formErrors, setFormErrors] = useState(initialFormErrors)
+  const [disabled, setDisabled] = useState(initialDisabled)
   const [itemList, updateItemList] = useState([]);
+  
+
+  //Function to pass into the newIterm form to track input changes
+  const onFormInputChange = evt => {
+    const {name, value} = evt.target
+
+    // Yup
+    //     .reach(itemSchema, name)
+    //     .validate(value)
+    //     .then(() => {
+    //         setFormErrors({
+    //             ...formErrors,
+    //             [name]: ""
+    //         });
+    //     })
+    //     .catch(err => {
+    //         setFormErrors({
+    //             ...formErrors,
+    //             [name]: err.errors[0]
+    //         });
+    //     })
+
+    setFormValues({
+        ...formValues,
+        [name]: value
+    })
+  }
+
+  //Submit handler for new Item
+  const onSubmit = evt => {
+      evt.preventDefault()
+
+      const newItem = {
+          name: formValues.name.trim(),
+          body: formValues.body.trim(),
+          completed: formValues.completed,
+          recurring: formValues.recurring,
+          due_date: formValues.due_date
+      }
+
+      itemSubmit(newItem)
+  }
 
   //Initialize first item list
   useEffect(() => {
     updateItemList(initialItems);
   }, []);
 
+  //What you gonna do when I leave
+  const itemSubmit = newItem => {
+    Axios.post('https://reqres.in/api/users', newItem)
+    .then(res => {
+      console.log(res)
+      updateItemList([...itemList, res.data])
+    })
+    .catch(err => {
+      console.log(err)
+    })
+    .finally(() => {
+      setFormValues(initialFormValues)
+    })
+  }
+
   return (
     <div>
         {itemList.map((item) => {
             return <Item itemInfo={item} />;
         })}
-        <ItemForm />
+        <ItemForm 
+          values={formValues}
+          onInputChange={onFormInputChange}
+          onSubmit={onSubmit}
+          disabled={disabled}
+          errors={formErrors}
+        />
     </div>
   );
 }

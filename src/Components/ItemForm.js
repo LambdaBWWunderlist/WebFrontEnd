@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import * as Yup from 'yup'
-import itemSchema from './Validation/itemSchema'
 
 // {
 //     name: STRING; // not nullable, 128 chars max
@@ -11,68 +8,17 @@ import itemSchema from './Validation/itemSchema'
 //     due_date: TIMESTAMP; // nullable, timestamp format: 'YYYY-MM-DD HH:MM:SS' (UTC)
 //   }
 
-//Initial States
-const initialFormValues = {
-    name: '',
-    body: '',
-    completed: false,
-    recurring: 'One Time',
-    due_date: ''
-}
 
-const initialFormErrors = {
-    name: '',
-    body: '',
-    completed: '',
-    recurring: '',
-    due_date: ''
-}
 
-const initialDisabled = false
+export default function ItemForm(props){
 
-export default function ItemForm(){
-
-    //States
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-    const [disabled, setDisabled] = useState(initialDisabled)
-
-    const onInputChange = evt => {
-        const {name, value} = evt.target
-
-        // Yup
-        //     .reach(loginSchema, name)
-        //     .validate(value)
-        //     .then(() => {
-        //         setFormErrors({
-        //             ...formErrors,
-        //             [name]: ""
-        //         });
-        //     })
-        //     .catch(err => {
-        //         setFormErrors({
-        //             ...formErrors,
-        //             [name]: err.errors[0]
-        //         });
-        //     })
-
-        setFormValues({
-            ...formValues,
-            [name]: value
-        })
-    }
-
-    const onSubmit = evt => {
-        evt.preventDefault()
-
-        const newItem = {
-            name: formValues.name.trim(),
-            body: formValues.body.trim(),
-            completed: formValues.completed,
-            recurring: formValues.recurring,
-            due_date: formValues.due_date
-        }
-    }
+    const {
+        values,
+        onSubmit,
+        onInputChange,
+        disabled,
+        errors,
+      } = props
 
     // useEffect(() => {
     //     itemSchema.isValid(formValues).then(valid => {
@@ -83,10 +29,10 @@ export default function ItemForm(){
 
     return(
         <form className='form container' onSubmit={onSubmit}>
-            <div classname='form-group inputs'>
+            <div className='form-group inputs'>
                 <label> Task Name
                     <input 
-                        value={formValues.name}
+                        value={values.name}
                         onChange={onInputChange}
                         name='name'
                         type='text'
@@ -95,7 +41,7 @@ export default function ItemForm(){
 
                 <label> Description
                     <input 
-                        value={formValues.body}
+                        value={values.body}
                         onChange={onInputChange}
                         name='body'
                         type='text'
@@ -105,7 +51,7 @@ export default function ItemForm(){
                 <label> Recurring Event?
                 <select
                     onChange={onInputChange}
-                    value={formValues.recurring}
+                    value={values.recurring}
                     name='recurring'
                 >
                     <option value='Single Event'> Single Event </option>
@@ -117,9 +63,9 @@ export default function ItemForm(){
             </div>
             <div className="form-group submit">
                 <div className="errors">
-                <div>{formErrors.username}</div>
-                <div>{formErrors.email}</div>
-                <div>{formErrors.password}</div>
+                    <div>{errors.username}</div>
+                    <div>{errors.email}</div>
+                    <div>{errors.password}</div>
                 </div>
                 <button id="submitBtn" disabled={disabled}>
                     submit
