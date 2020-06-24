@@ -69,30 +69,32 @@ export default function Login() {
     });
   };
 
-  const sendAccount = sendingAccount => {
-    Axios.post('https://wunderlist-node.herokuapp.com/api/login', sendingAccount)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    .finally(() => {
-      setFormValues(initialFormValues)
-    })
-  }
+  const sendAccount = (sendingAccount) => {
+    Axios.post(
+      "https://wunderlist-node.herokuapp.com/api/login",
+      sendingAccount
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setFormValues(initialFormValues);
+      });
+  };
 
   const onSubmit = (evt) => {
     evt.preventDefault();
 
     const accountSend = {
-        username: formValues.username.trim(),
-        email: formValues.email.trim(),
-        password: formValues.password.trim()
-    }
+      username: formValues.username.trim(),
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+    };
 
-
-    sendAccount(accountSend)
+    sendAccount(accountSend);
   };
 
   //Toggle button disable
@@ -152,11 +154,11 @@ export default function Login() {
           <div>{formErrors.email}</div>
           <div>{formErrors.password}</div>
         </div>
-        {/* <Link to="/list"> */}
+        <Link to="/list">
           <button id="submitBtn" disabled={disabled}>
             submit
           </button>
-        {/* </Link> */}
+        </Link>
       </div>
     </CardCenter>
   );

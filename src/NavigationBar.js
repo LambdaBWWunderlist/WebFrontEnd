@@ -28,16 +28,14 @@ const NavigationBar = (props) => (
   <NavBarStyle>
     <H3>Wunderlist</H3>
     <div>
-      <Link to="/Home">
-        <ButtonStyle>To Do List</ButtonStyle>
-      </Link>
-
       <Link to="/Register">
         <ButtonStyle>Sign Up!</ButtonStyle>
       </Link>
-
       <Link to="/Login">
         <ButtonStyle>Login</ButtonStyle>
+      </Link>
+      <Link to="/List">
+        <ButtonStyle>To Do List</ButtonStyle>
       </Link>
     </div>
   </NavBarStyle>
