@@ -33,6 +33,19 @@ export default function Login(){
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
 
+    const postNewAccount = newAccount => {
+        Axios.post('https://reqres.in/api/users', newAccount)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+        .finally(() => {
+          setFormValues(initialFormValues)
+        })
+      }
+
     const onInputChange = evt => {
         const {name, value} = evt.target
 
@@ -61,7 +74,13 @@ export default function Login(){
     const onSubmit = evt => {
         evt.preventDefault()
 
-        //LOGIN AUTHENTICATION SHIT HERE?
+        const newAccount = {
+            username: formValues.username.trim(),
+            password: formValues.password.trim()
+        }
+        
+
+        postNewAccount(newAccount)
     }
 
     //Toggle button disable
