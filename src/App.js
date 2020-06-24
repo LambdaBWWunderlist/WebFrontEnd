@@ -24,8 +24,9 @@ function App() {
             <Register />
           </Route>
 
-          <Route path="/List">
+          <Route path="/Home">
             <List />
+            <ItemForm />
           </Route>
 
           <Route path="/Item">
