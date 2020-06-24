@@ -52,6 +52,7 @@ const Register = () => {
     Axios.post("https://wunderlist-node.herokuapp.com/api/register", newUser)
       .then((response) => {
         setUsers([...users, response.data]);
+        console.log(response);
       })
       .catch((error) => {
         console.log(error);
@@ -116,8 +117,6 @@ const Register = () => {
     console.log(onSubmit);
 
     const newUser = {
-      // id: uuid(),
-      name: formValues.name,
       email: formValues.email,
       password: formValues.password,
       terms: formValues.terms,
@@ -152,7 +151,7 @@ const Register = () => {
         <br></br>
 
         <input
-          type="text"
+          type="password"
           name="password"
           value={formValues.value}
           onChange={onInputChange}
@@ -172,7 +171,7 @@ const Register = () => {
           Terms of Service
         </label>
         <br></br>
-        <Link to="/list">
+        <Link to="/login">
           <button type="submit" disabled={disabled}>
             submit
           </button>
