@@ -14,14 +14,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //styled components
-const CardCenter = styled.form`
-  margin: 100px auto;
-  max-width: 300px;
+const CardCenter = styled.div`
+  margin: 50px auto;
+  max-width: 90%;
   border: 1px solid #f17300;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  padding: 10px;
+`;
+
+const H1 = styled.h1`
+  color: #054a91;
 `;
 
 //Initial States
@@ -69,30 +75,32 @@ export default function Login() {
     });
   };
 
-  const sendAccount = sendingAccount => {
-    Axios.post('https://wunderlist-node.herokuapp.com/api/login', sendingAccount)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    .finally(() => {
-      setFormValues(initialFormValues)
-    })
-  }
+  const sendAccount = (sendingAccount) => {
+    Axios.post(
+      "https://wunderlist-node.herokuapp.com/api/login",
+      sendingAccount
+    )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setFormValues(initialFormValues);
+      });
+  };
 
   const onSubmit = (evt) => {
     evt.preventDefault();
 
     const accountSend = {
-        username: formValues.username.trim(),
-        email: formValues.email.trim(),
-        password: formValues.password.trim()
-    }
+      username: formValues.username.trim(),
+      email: formValues.email.trim(),
+      password: formValues.password.trim(),
+    };
 
-
-    sendAccount(accountSend)
+    sendAccount(accountSend);
   };
 
   //Toggle button disable
@@ -107,41 +115,34 @@ export default function Login() {
 
   return (
     <CardCenter className="form container" onSubmit={onSubmit}>
+      <H1>Login</H1>
       {/* Form Inputs */}
       <div className="form-group inputs">
-        <label>
-          {" "}
-          Username
-          <input
-            value={formValues.username}
-            onChange={onInputChange}
-            name="username"
-            type="text"
-          />
-        </label>
+        <input
+          value={formValues.username}
+          onChange={onInputChange}
+          name="username"
+          type="text"
+          placeholder="Username"
+        />
         <br></br>
 
-        <label>
-          {" "}
-          Email
-          <input
-            type="text"
-            name="email"
-            onChange={onInputChange}
-            value={formValues.email}
-          />
-        </label>
+        <input
+          type="text"
+          name="email"
+          onChange={onInputChange}
+          value={formValues.email}
+          placeholder="Email"
+        />
         <br></br>
 
-        <label>
-          Password:
-          <input
-            value={formValues.password}
-            onChange={onInputChange}
-            name="password"
-            type="password"
-          />
-        </label>
+        <input
+          value={formValues.password}
+          onChange={onInputChange}
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
       </div>
       <br></br>
 
@@ -152,11 +153,11 @@ export default function Login() {
           <div>{formErrors.email}</div>
           <div>{formErrors.password}</div>
         </div>
-        {/* <Link to="/list"> */}
+        <Link to="/list">
           <button id="submitBtn" disabled={disabled}>
             submit
           </button>
-        {/* </Link> */}
+        </Link>
       </div>
     </CardCenter>
   );
