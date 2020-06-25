@@ -105,8 +105,9 @@ export default function List() {
 
   //Initialize first item list
   useEffect(() => {
-    updateItemList(initialItems);
+    updateItemList(initialItems)
   }, []);
+
 
   const itemSubmit = newItem => {
     Axios.post('https://reqres.in/api/users', newItem)
