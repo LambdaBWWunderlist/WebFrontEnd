@@ -44,6 +44,7 @@ const initialFormErrors = {
 
 const initialDisabled = false
 
+const initialSearch = ''
 
 export default function List() {
   //States
@@ -51,7 +52,7 @@ export default function List() {
   const [formErrors, setFormErrors] = useState(initialFormErrors)
   const [disabled, setDisabled] = useState(initialDisabled)
   const [itemList, updateItemList] = useState([]);
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(initialSearch)
   
 
   //Function to pass into the newIterm form to track input changes
@@ -80,11 +81,12 @@ export default function List() {
     })
   }
 
+
   const searchInputChange = evt => {
     const value = evt.target.value
 
-    // setSearch(value)
-    // console.log(search)
+    setSearch(value)
+    console.log(search)
   }
   //Submit handler for new Item
   const onSubmit = evt => {
@@ -103,10 +105,10 @@ export default function List() {
 
   //Initialize first item list
   useEffect(() => {
-    updateItemList(initialItems);
+    updateItemList(initialItems)
   }, []);
 
-  //What you gonna do when I leave
+
   const itemSubmit = newItem => {
     Axios.post('https://reqres.in/api/users', newItem)
     .then(res => {
@@ -125,7 +127,7 @@ export default function List() {
     <div>
       <ItemSearch 
         search={search}
-        onSearchChange={searchInputChange}
+        searchInputChange={searchInputChange}
       />
       {itemList.map((item) => {
           return <Item itemInfo={item} />;

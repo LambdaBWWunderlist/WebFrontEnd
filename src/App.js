@@ -31,6 +31,10 @@ function App() {
           <Route path="/Item">
             <Item />
           </Route>
+
+          <Route path="/">
+            <Landing />
+          </Route>
         </Switch>
       </div>
     </div>
