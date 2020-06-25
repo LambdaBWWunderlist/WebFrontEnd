@@ -7,14 +7,19 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //styled components
-const CardCenter = styled.form`
-  margin: 100px auto;
-  max-width: 300px;
+const CardCenter = styled.div`
+  margin: 50px auto;
+  max-width: 90%;
   border: 1px solid #f17300;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+`;
+
+const H1 = styled.h1`
+  color: #054a91;
 `;
 
 const Register = () => {
@@ -128,6 +133,7 @@ const Register = () => {
   return (
     <form onSubmit={onSubmit} id="submit" className="formContainer">
       <CardCenter>
+        <H1>Create an account!</H1>
         <div>
           <p>{formErrors.name}</p>
           <p>{formErrors.password}</p>

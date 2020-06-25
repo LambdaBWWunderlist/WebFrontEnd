@@ -14,14 +14,20 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 //styled components
-const CardCenter = styled.form`
-  margin: 100px auto;
-  max-width: 300px;
+const CardCenter = styled.div`
+  margin: 50px auto;
+  max-width: 90%;
   border: 1px solid #f17300;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  padding: 10px;
+`;
+
+const H1 = styled.h1`
+  color: #054a91;
 `;
 
 //Initial States
@@ -109,41 +115,34 @@ export default function Login() {
 
   return (
     <CardCenter className="form container" onSubmit={onSubmit}>
+      <H1>Login</H1>
       {/* Form Inputs */}
       <div className="form-group inputs">
-        <label>
-          {" "}
-          Username
-          <input
-            value={formValues.username}
-            onChange={onInputChange}
-            name="username"
-            type="text"
-          />
-        </label>
+        <input
+          value={formValues.username}
+          onChange={onInputChange}
+          name="username"
+          type="text"
+          placeholder="Username"
+        />
         <br></br>
 
-        <label>
-          {" "}
-          Email
-          <input
-            type="text"
-            name="email"
-            onChange={onInputChange}
-            value={formValues.email}
-          />
-        </label>
+        <input
+          type="text"
+          name="email"
+          onChange={onInputChange}
+          value={formValues.email}
+          placeholder="Email"
+        />
         <br></br>
 
-        <label>
-          Password:
-          <input
-            value={formValues.password}
-            onChange={onInputChange}
-            name="password"
-            type="password"
-          />
-        </label>
+        <input
+          value={formValues.password}
+          onChange={onInputChange}
+          name="password"
+          type="password"
+          placeholder="Password"
+        />
       </div>
       <br></br>
 

@@ -8,6 +8,7 @@ const NavBarStyle = styled.nav`
   justify-content: space-evenly;
   border: 2px solid #f17300;
   border-radius: 5px;
+  background-color: white;
 `;
 
 const H3 = styled.h3`
