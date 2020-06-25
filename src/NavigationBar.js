@@ -28,6 +28,9 @@ const NavigationBar = (props) => (
   <NavBarStyle>
     <H3>Wunderlist</H3>
     <div>
+      <Link to="/">
+        <ButtonStyle>Home</ButtonStyle>
+      </Link>
       <Link to="/Register">
         <ButtonStyle>Sign Up!</ButtonStyle>
       </Link>
@@ -36,6 +39,9 @@ const NavigationBar = (props) => (
       </Link>
       <Link to="/List">
         <ButtonStyle>To Do List</ButtonStyle>
+      </Link>
+      <Link to="/Friends">
+        <ButtonStyle>Friends</ButtonStyle>
       </Link>
     </div>
   </NavBarStyle>

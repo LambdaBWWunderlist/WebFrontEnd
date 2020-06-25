@@ -8,7 +8,8 @@ import Login from "./Components/Login";
 import Register from "./Components/Register";
 import List from "./Components/List";
 import Item from "./Components/Item";
-import ItemForm from "./Components/ItemForm";
+import Landing from "./Components/Landing";
+import Home from "./Components/Home";
 
 function App() {
   return (
@@ -32,8 +33,11 @@ function App() {
             <Item />
           </Route>
 
-          <Route path="/">
+          <Route path="/Friends">
             <Landing />
+          </Route>
+          <Route path="/">
+            <Home />
           </Route>
         </Switch>
       </div>
